@@ -1,5 +1,7 @@
 import Mafuba from 'mafuba'
 
 export default new Mafuba({
-  launches: []
+  launches: [],
+  latitude: 0,
+  longitude: 0
 })

@@ -6,7 +6,7 @@ import Canvas from './components/Canvas'
 import Panel from './components/Panel'
 import Workspace from './components/Workspace'
 import Store from './Store'
-import RocketInfo from './components/RocketInfo';
+import RocketInfo from './components/RocketInfo'
 
 export default class App extends Component {
   componentWillMount () {
@@ -17,7 +17,7 @@ export default class App extends Component {
   }
 
   async getUpcomingLaunches () {
-    let data = await window.fetch('https://spacelaunchnow.me/3.2.0/launch/upcoming/?format=json')
+    let data = await window.fetch('https://spacelaunchnow.me/3.2.0/launch/upcoming/?format=json&limit=10000')
     data = await data.json()
     Store.setState({launches: data.results})
   }
@@ -28,7 +28,7 @@ export default class App extends Component {
           <Section title='Rocco' />
         </TopBar>
         <Workspace>
-          <Panel title='Upcoming launches 2018'>
+          <Panel title='Upcoming launches'>
             <RocketInfo data={Store.data.launches} />
           </Panel>
           <Canvas />
