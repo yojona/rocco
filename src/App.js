@@ -26,6 +26,7 @@ export default class App extends Component {
       <Layout>
         <TopBar>
           <Section title='Rocco' />
+          <Section title='Rocket SketchFab' to='https://sketchfab.com/models/a4ac66400a6549108f59f014025bd3e7' />
         </TopBar>
         <Workspace>
           <Panel title='Upcoming launches'>

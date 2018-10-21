@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Theme from '../Theme'
 import icon from '../assets/pad.png'
-import Store from '../Store';
+import Store from '../Store'
+let inter = null
 
 export default class Item extends Component {
   state = {
@@ -9,11 +10,19 @@ export default class Item extends Component {
   }
   constructor () {
     super()
- 
-    setInterval(() => {
+  }
+
+  startInterval () {
+    inter = setInterval(() => {
       const countdown = this.getTimeRemaining(this.props.source.net)
       this.setState({countdown})
     }, 1000)
+    this.refs.counter.style.display = 'block'
+  }
+
+  stopInterval () {
+    clearInterval(inter)
+    this.refs.counter.style.display = 'none'
   }
 
   getTimeRemaining (endtime) {
@@ -37,13 +46,19 @@ export default class Item extends Component {
         margin: 4,
         borderRadius: Theme.BORDER.RADIUS,
         display: 'flex',
-        userSelect: 'none'
+        userSelect: 'none',
+        outline: 'none'
       }}
-        onClick={(e) => {
+        tabIndex= '-1' 
+        onFocus={(e) => {
+          this.startInterval()
           Store.setState({
             latitude: this.props.source.pad.latitude,
             longitude: this.props.source.pad.longitude
           })
+        }}
+        onBlur={(e) => {
+          this.stopInterval()
         }}
       >
         <div style={styles.icon}>
@@ -52,7 +67,7 @@ export default class Item extends Component {
         <div style={styles.body}>
           <p style={styles.title}> {this.props.source.name} </p>
           <p style={styles.location}> {this.props.source.pad.location.name} </p>
-          <p style={styles.countdown}>{this.state.countdown}</p>
+          <p ref='counter' style={styles.countdown}>{this.state.countdown}</p>
         </div>
         <div style={styles.date}>
           <p style={{margin: 0}}>{month}</p>
@@ -105,6 +120,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: 'bold',
-    color: 'green'
+    color: 'green',
+    display: 'none'
   }
 }

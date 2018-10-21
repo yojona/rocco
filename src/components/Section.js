@@ -7,9 +7,14 @@ export default function Section ({title, to}) {
       alignItems: 'center',
       marginLeft: 4,
       marginRight: 4,
-      height: 40
+      height: 40,
+      cursor: 'none',
+      paddingLeft: 32
     }}>
-      {title}
+      <a style={{
+        color: 'white',
+        textDecoration: 'none'
+      }} href={to} target='_blank'>{title}</a>
     </div>
   )
 }
