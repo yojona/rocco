@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
+import Theme from '../Theme'
 
 export default class Panel extends Component {
   render () {
     return (
       <div style={{
-        width: 400,
-        height: '100vh'
+        width: 500,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'auto'
       }}>
-        <span> Hello World </span>
+        <span style={{
+          color: Theme.TEXT.DEFAULT,
+          fontSize: 20,
+          padding: 8
+        }}>{this.props.title}</span>
+        {this.props.children}
       </div>
     )
   }

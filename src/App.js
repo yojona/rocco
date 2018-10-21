@@ -5,18 +5,21 @@ import Section from './components/Section'
 import Canvas from './components/Canvas'
 import Panel from './components/Panel'
 import Workspace from './components/Workspace'
+import Store from './Store'
+import RocketInfo from './components/RocketInfo';
 
 export default class App extends Component {
   componentWillMount () {
     document.body.style.margin = 0
     document.body.style.fontFamily = 'sans-serif'
+    Store.link(this)
     this.getUpcomingLaunches()
   }
 
   async getUpcomingLaunches () {
-    let launches = await window.fetch('https://spacelaunchnow.me/3.2.0/launch/upcoming/?format=json')
-    launches = await launches.json()
-    console.log(launches)
+    let data = await window.fetch('https://spacelaunchnow.me/3.2.0/launch/upcoming/?format=json')
+    data = await data.json()
+    Store.setState({launches: data.results})
   }
   render () {
     return (
@@ -25,7 +28,9 @@ export default class App extends Component {
           <Section title='Rocco' />
         </TopBar>
         <Workspace>
-          <Panel />
+          <Panel title='Upcoming launches 2018'>
+            <RocketInfo data={Store.data.launches} />
+          </Panel>
           <Canvas />
         </Workspace>
       </Layout>
