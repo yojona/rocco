@@ -1,28 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Layout from './components/Layout'
+import TopBar from './components/TopBar'
+import Section from './components/Section'
+import Canvas from './components/Canvas'
+import ToggleView from './components/ToggleView'
 
-class App extends Component {
-  render() {
+export default class App extends Component {
+  componentWillMount () {
+    document.body.style.margin = 0
+    document.body.style.fontFamily = 'sans-serif'
+    // this.getUpcomingLaunches()
+  }
+
+  async getUpcomingLaunches () {
+    let headers = new window.Headers()
+    headers.append('Access-Control-Allow-Origin', '*')
+    let launches = await window.fetch('https://spacelaunchnow.me/3.2.0/launch/upcoming/?format=json', {mode: 'cors'})
+    launches = await launches.json()
+    console.log(launches)
+  }
+  render () {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+      <Layout>cachescaches
+        <TopBar>
+          <Section title='Rocco' />
+        </TopBar>
+        <ToggleView />
+        <Canvas />
+      </Layout>
+    )
   }
 }
-
-export default App;
