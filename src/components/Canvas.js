@@ -19,15 +19,18 @@ export default class Canvas extends Component {
     wwd.addLayer(atmosphereLayer)
     starFieldLayer.time = new Date()
     atmosphereLayer.lightLocation = WorldWind.SunPosition.getAsGeographicLocation(starFieldLayer.time)
+    wwd.navigator.range = 25000000
   }
 
   render () {
     return (
       <canvas
         id='scene'
-        height={600}
         style={{
-          background: 'black'
+          background: `radial-gradient(
+            #220b2a,
+            #0d0116)`,
+          width: '100%'
         }} />
     )
   }
